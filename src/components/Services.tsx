@@ -1,27 +1,38 @@
-// import { CheckCircle2 } from "lucide-react";
-// import { pricingOptions } from "../constants";
+"use client";
 
-// import {
-//   Building2,
-//   Cctv,
-//   Contact2,
-//   Scale,
-//   MailPlus,
-//   ReceiptIndianRupee,
-//   Swords,
-//   Microscope,
-// } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  fadeInUp,
+  staggerContainer,
+  cardItem,
+  viewportOptions,
+} from "@/utils/animations";
 
 const Services = () => {
   return (
     <div id="law-services" className="mt-4 pt-16">
-      <h2 className="text-3xl sm:text-5xl lg:text-6xl text-center my-8 tracking-wide font-semibold">
+      <motion.h2
+        className="text-3xl sm:text-5xl lg:text-6xl text-center my-8 tracking-wide font-semibold"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOptions}
+        variants={fadeInUp}
+      >
         Services
-      </h2>
+      </motion.h2>
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap -mx-4">
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+          <motion.div
+            className="flex flex-wrap -mx-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOptions}
+            variants={staggerContainer}
+          >
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -67,8 +78,11 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+            </motion.div>
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -122,8 +136,11 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+            </motion.div>
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -200,8 +217,11 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+            </motion.div>
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -256,8 +276,11 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+            </motion.div>
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -305,8 +328,11 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+            </motion.div>
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -355,8 +381,11 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+            </motion.div>
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -411,8 +440,11 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20">
+            </motion.div>
+            <motion.div
+              className="w-full md:w-1/2 lg:w-1/3 px-4 mb-12 lg:mb-20"
+              variants={cardItem}
+            >
               <div className="hidden max-md:flex xl:flex h-52 w-96 mb-3 rounded-2xl">
                 <img
                   className="h-52 w-full rounded-lg object-cover"
@@ -476,8 +508,8 @@ const Services = () => {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
       <>
@@ -489,7 +521,13 @@ const Services = () => {
             alt="Law firm"
           />
           <div className="relative container px-4 mx-auto z-10">
-            <div className="max-w-md mx-auto lg:mx-0 p-8 bg-white rounded-lg">
+            <motion.div
+              className="max-w-md mx-auto lg:mx-0 p-8 bg-white rounded-lg"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOptions}
+              variants={fadeInUp}
+            >
               <h3 className="mb-4 text-2xl font-semibold">
                 The Law firm of the 21 century
               </h3>
@@ -514,7 +552,7 @@ const Services = () => {
               >
                 Learn more
               </a>
-            </div>
+            </motion.div>
           </div>
         </section>
       </>

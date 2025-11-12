@@ -30,8 +30,9 @@ const ContactForm = () => {
   ) => {
     try {
       setIsLoading(true);
-      // Send email using Nodemailer
-      await fetch("/api/contact", {
+
+      // Send email using Mailgun
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,18 +40,46 @@ const ContactForm = () => {
         body: JSON.stringify(values),
       });
 
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to send message. Please try again.");
+      }
+
       // Reset the form
       resetForm();
 
-      // Show success message or redirect to a thank you page
+      // Show success message
       console.log("Email sent successfully!");
+      toast.success(
+        data.message || "Thank you for contacting us! We'll get back to you soon.",
+        {
+          autoClose: 7000,
+        }
+      );
+
+      // Show confetti for 5 seconds
+      setShowConfetti(true);
+      setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
     } catch (error) {
       // Handle error
       console.error("Failed to send email:", error);
+
+      let errorMessage = "Failed to send message. Please try again.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === "string") {
+        errorMessage = error;
+      }
+
+      toast.error(errorMessage, {
+        autoClose: 7000,
+      });
     } finally {
       setSubmitting(false);
-      toast.success("Form submitted successfully!");
-      setShowConfetti(true);
       setIsLoading(false);
     }
   };
@@ -121,10 +150,37 @@ const ContactForm = () => {
               </div>
               <div className="p-2 w-full">
                 <button
+                  type="submit"
                   disabled={isLoading}
-                  className="flex w-full mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg justify-center"
+                  className="flex w-full mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                 >
-                  Send Message
+                  {isLoading ? (
+                    <span className="flex items-center gap-2">
+                      <svg
+                        className="animate-spin h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
               </div>
             </div>

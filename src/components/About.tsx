@@ -1,10 +1,21 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { fadeInUp, slideInLeft, slideInRight, viewportOptions } from "@/utils/animations";
+
 const About = () => {
   return (
     <div id="about" className="relative mt-10 pt-16 min-h-[800px]">
       <section className="relative py-20">
         <div className="container px-4 mx-auto">
           <div className="relative flex flex-wrap items-center -mx-4">
-            <div className="relative w-full lg:w-1/2 px-4 pb-12 lg:pb-0">
+            <motion.div
+              className="relative w-full lg:w-1/2 px-4 pb-12 lg:pb-0"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOptions}
+              variants={slideInLeft}
+            >
               <div className="w-auto">
                 <h2 className="mb-10 lg:mb-16 text-4xl font-semibold font-heading">
                   Put yourself in the right hands
@@ -96,14 +107,20 @@ const About = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="w-full lg:w-1/2 px-4">
+            </motion.div>
+            <motion.div
+              className="w-full lg:w-1/2 px-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOptions}
+              variants={slideInRight}
+            >
               <img
                 className="w-full h-96 lg:h-128 mx-auto mb-6 md:mb-0 rounded-xl object-cover"
                 src="https://static.shuffle.dev/uploads/files/31/31993a7f1bea9fbb107ee5422dfe4ab6e063d82e/giammarco-zeH-ljawHtg-unsplash-2.jpg"
                 alt="About us"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
