@@ -37,3 +37,5 @@ next-env.d.ts
 .vscode
 
 data-needed.txt
+# Local Netlify folder
+.netlify
