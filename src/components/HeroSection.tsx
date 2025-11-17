@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Caption from "@/assets/caption.png";
 import whiteCaption from "@/assets/caption-white.png";
 import logo from "@/assets/logo.png";
 import { scaleIn, fadeInUp, fastStagger, buttonTap } from "@/utils/animations";
@@ -24,8 +23,8 @@ const HeroSection = () => {
         >
           <Image
             className="h-32 w-auto rounded-md"
-            src={logo as unknown as string}
-            alt={"caption"}
+            src={logo}
+            alt={"Legal Excelencia Logo"}
           />
         </motion.div>
         <motion.div
@@ -34,8 +33,8 @@ const HeroSection = () => {
         >
           <Image
             className="h-16 w-auto rounded-md"
-            src={whiteCaption as unknown as string}
-            alt={"caption"}
+            src={whiteCaption}
+            alt={"Allied for Excellence"}
           />
         </motion.div>
         <motion.h1
