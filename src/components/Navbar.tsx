@@ -21,8 +21,8 @@ const Navbar = () => {
           <div className="flex items-center flex-shrink-0">
             <Image
               className="h-10 w-10 mr-2"
-              src={logo as unknown as string}
-              alt="Logo"
+              src={logo}
+              alt="Legal Excelencia Logo"
             />
             <span className="custom-font text-xl tracking-tight text-[#1f3864]">
               LEGAL EXCELENCIA
@@ -37,7 +37,7 @@ const Navbar = () => {
               ))}
             </ul>
             <a
-              className="hidden lg:flex justify-center space-x-12 items-center ml-8 p-2 rounded-md bg-red-200 text-red-500 hover:bg-red-300 transition duration-500 ease-in-out cursor-pointer"
+              className="hidden lg:flex justify-center space-x-12 items-center ml-8 px-6 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition duration-200 ease-in-out cursor-pointer"
               href="#info"
               onClick={toggleNavbar}
             >
@@ -64,7 +64,7 @@ const Navbar = () => {
               <div className="mt-auto">
                 <div className="pt-6">
                   <a
-                    className="block py-3 text-center text-sm leading-normal bg-red-50 hover:bg-red-100 text-red-300 font-semibold rounded transition duration-200"
+                    className="block py-3 text-center text-sm leading-normal bg-red-500 hover:bg-red-600 text-white font-semibold rounded transition duration-200"
                     href="#info"
                     onClick={toggleNavbar}
                   >
