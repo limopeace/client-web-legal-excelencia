@@ -1,0 +1,17 @@
+# Redirect all phantom spam pages to homepage with 301 permanent redirect
+# This tells Google these pages have permanently moved
+
+/ownership              /       301
+/porn*                  /       301
+/sex*                   /       301
+/adult*                 /       301
+/xxx*                   /       301
+/teen*                  /       301
+/hardcore*              /       301
+/*.php                  /       301
+/desi*                  /       301
+/movies*                /       301
+/creampie*              /       301
+
+# Catch all other non-existent pages
+/*                      /404    404
