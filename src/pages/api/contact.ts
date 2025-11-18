@@ -5,6 +5,67 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const API_KEY = process.env.MAILGUN_SENDING_API_KEY || "";
 const DOMAIN = process.env.MAILGUN_DOMAIN || "";
 
+// Simple in-memory rate limiting
+// Map to store IP addresses and their request timestamps
+const rateLimitMap = new Map<string, number[]>();
+
+// Rate limit configuration
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const MAX_REQUESTS_PER_WINDOW = 3; // Max 3 emails per hour per IP
+
+function getRateLimitKey(req: NextApiRequest): string {
+  // Try to get real IP from various headers (for proxied requests)
+  const forwarded = req.headers['x-forwarded-for'];
+  const realIp = req.headers['x-real-ip'];
+
+  if (typeof forwarded === 'string') {
+    return forwarded.split(',')[0].trim();
+  }
+  if (typeof realIp === 'string') {
+    return realIp;
+  }
+  // Fallback to socket IP
+  return req.socket.remoteAddress || 'unknown';
+}
+
+function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const timestamps = rateLimitMap.get(ip) || [];
+
+  // Filter out timestamps outside the current window
+  const recentTimestamps = timestamps.filter(
+    timestamp => now - timestamp < RATE_LIMIT_WINDOW_MS
+  );
+
+  // Check if rate limit exceeded
+  if (recentTimestamps.length >= MAX_REQUESTS_PER_WINDOW) {
+    return { allowed: false, remaining: 0 };
+  }
+
+  // Add current timestamp and update map
+  recentTimestamps.push(now);
+  rateLimitMap.set(ip, recentTimestamps);
+
+  // Clean up old entries periodically (simple cleanup)
+  if (rateLimitMap.size > 1000) {
+    // Remove entries older than the window
+    const entries = Array.from(rateLimitMap.entries());
+    for (const [key, times] of entries) {
+      const validTimes = times.filter(t => now - t < RATE_LIMIT_WINDOW_MS);
+      if (validTimes.length === 0) {
+        rateLimitMap.delete(key);
+      } else {
+        rateLimitMap.set(key, validTimes);
+      }
+    }
+  }
+
+  return {
+    allowed: true,
+    remaining: MAX_REQUESTS_PER_WINDOW - recentTimestamps.length
+  };
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -17,6 +78,23 @@ export default async function handler(
       error: "Method not allowed. Please use POST.",
     });
   }
+
+  // Rate limiting check
+  const clientIp = getRateLimitKey(req);
+  const { allowed, remaining } = checkRateLimit(clientIp);
+
+  if (!allowed) {
+    console.warn(`Rate limit exceeded for IP: ${clientIp}`);
+    return res.status(429).json({
+      submitted: false,
+      success: false,
+      error: "Too many requests. Please try again later (max 3 per hour).",
+    });
+  }
+
+  // Set rate limit headers
+  res.setHeader('X-RateLimit-Limit', MAX_REQUESTS_PER_WINDOW.toString());
+  res.setHeader('X-RateLimit-Remaining', remaining.toString());
 
   // Validate environment variables
   if (!API_KEY || !DOMAIN) {

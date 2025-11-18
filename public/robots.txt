@@ -1,0 +1,13 @@
+# robots.txt for Legal Excelencia
+# Allows all search engines to crawl the entire site
+
+User-agent: *
+Allow: /
+
+# Block access to sensitive paths
+Disallow: /api/
+Disallow: /.env
+Disallow: /_next/webpack-hmr
+
+# Sitemap location
+Sitemap: https://legalexcelencia.com/sitemap.xml
